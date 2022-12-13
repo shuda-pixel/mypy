@@ -2118,7 +2118,10 @@ class ExpressionChecker(ExpressionVisitor[Type]):
         outer_context: Context,
     ) -> None:
         """Check the type of a single argument in a call."""
-        caller_type = get_proper_type(caller_type)
+        if isinstance(caller_type, mypy.types.Instance):
+            caller_type = caller_type.type
+        else:
+            caller_type = get_proper_type(caller_type)
         original_caller_type = get_proper_type(original_caller_type)
         callee_type = get_proper_type(callee_type)
 
