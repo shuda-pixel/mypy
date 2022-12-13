@@ -1031,3 +1031,18 @@ def f1(b: bool) -> Optional[int]:
 class Defer:
     def __init__(self) -> None:
         self.defer = 10
+
+
+[case testClassVarWithTypingOptionalInNestedIf]
+import typing
+
+class Example:
+    def __init__(self):
+        self.a: typing.Optional[int]
+
+def check_class(foo: Example, bar: Example):
+    if foo.a is not None:
+        if foo.a > 0:
+            foo = bar
+        elif foo.a < 0:
+            foo.a += 1
