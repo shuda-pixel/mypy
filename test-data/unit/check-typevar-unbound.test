@@ -70,3 +70,17 @@ from typing import TypeVar
 T = TypeVar("T")
 def f(t: T) -> None:
     a, *b = t  # E: "object" object is not iterable
+
+[case testUnboundedTypevarTypingUndefined]
+import typing
+
+def test1() -> typing.undefined:
+    pass
+
+def test2() -> undefined:
+    pass
+
+[out]
+test.py:4:16 error: Name "typing.undefined" is not defined
+test.py:8:16: error: Name "undefined" is not defined
+

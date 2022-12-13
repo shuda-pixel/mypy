@@ -774,12 +774,13 @@ class Errors:
         ) in errors:
             s = ""
             if file is not None:
+
                 if self.show_column_numbers and line >= 0 and column >= 0:
                     srcloc = f"{file}:{line}:{1 + column}"
                     if self.show_error_end and end_line >= 0 and end_column >= 0:
                         srcloc += f":{end_line}:{end_column}"
                 elif line >= 0:
-                    srcloc = f"{file}:{line}"
+                    srcloc = f"{file}:{line}:{1 + column}"
                 else:
                     srcloc = file
                 s = f"{srcloc}: {severity}: {message}"
@@ -804,6 +805,7 @@ class Errors:
                         column = len(source_line) - len(source_line.lstrip())
 
                     # Shifts column after tab expansion
+
                     column = len(source_line[:column].expandtabs())
                     end_column = len(source_line[:end_column].expandtabs())
 
@@ -827,6 +829,7 @@ class Errors:
         source_lines = None
         if self.pretty:
             assert self.read_source
+
             source_lines = self.read_source(path)
         return self.format_messages(self.error_info_map[path], source_lines)
 
